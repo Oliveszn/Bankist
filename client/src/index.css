@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  color: #444;
+  background-color: #f3f3f3;
+  height: 100vh;
+  padding: 1rem;
+}
+
+.movements {
+  grid-row: 2 / span 3;
+}
+
+.trans {
+  transform: translate(-50%, -50%);
+}
+
+.over {
+  background-color: rgba(0, 0, 0, 0.9);
+}

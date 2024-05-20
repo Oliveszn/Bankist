@@ -38,14 +38,8 @@ const loan = async (req, res) => {
   }
 };
 
-//close account
-const closeAcc = async (req, res) => {
-  res.json({ mssg: "account closed" });
-};
-
 module.exports = {
   getMovements,
   transfer,
   loan,
-  closeAcc,
 };

@@ -1,5 +1,6 @@
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "3d" });
@@ -39,7 +40,6 @@ const signupUser = async (req, res) => {
 
 //close account
 const closeAcc = async (req, res) => {
-  // res.json({ mssg: "account closed" });
   const { username, password } = req.body;
 
   try {
@@ -54,6 +54,10 @@ const closeAcc = async (req, res) => {
     // if (!isPasswordValid) {
     //   return res.status(401).json({ error: "Invalid password" });
     // }
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+      throw Error("Incorrect password");
+    }
 
     // Delete the user
     await User.deleteOne({ _id: user._id });

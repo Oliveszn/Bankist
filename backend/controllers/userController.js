@@ -68,4 +68,9 @@ const closeAcc = async (req, res) => {
   }
 };
 
-module.exports = { signupUser, loginUser, closeAcc };
+//get movements
+const getMovements = async (req, res) => {
+  res.json({ mssg: "movements" });
+};
+
+module.exports = { signupUser, loginUser, closeAcc, getMovements };

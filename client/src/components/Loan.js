@@ -1,20 +1,34 @@
 import React from "react";
-import axios from "axios";
 import { useState } from "react";
 
 const Loan = () => {
   const [amount, setAmount] = useState("");
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
 
-  const handleLoanRequest = async () => {
+  const handleLoanRequest = async (e) => {
+    e.preventDefault();
+
     try {
-      // Make a request to the backend API to request a loan
-      const response = await axios.post("/loan", {
-        amount,
+      const response = await fetch("/api/movements/loan", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // Ensure you have the token in local storage
+        },
+        body: JSON.stringify({ amount }),
       });
-      console.log(response.data.message); // Log success message
+
+      const json = await response.json();
+
+      if (response.ok) {
+        alert("Loan acquired successfully");
+        console.log("New balance:", json.balance); // Display the new balance
+      } else {
+        alert(`Error: ${json.error}`);
+      }
     } catch (error) {
-      setError(error.response.data.error);
+      console.error("Error acquiring loan:", error);
+      alert("An error occurred while acquiring the loan. Please try again.");
     }
   };
 
@@ -36,7 +50,7 @@ const Loan = () => {
         <button className="border-none rounded-lg text-3xl bg-white cursor-pointer transition duration-300 focus:outline-none focus:bg-white focus:bg-opacity-80 form__btn--loan">
           &rarr;
         </button>
-        {error && <p>{error}</p>}
+        {/* {error && <p>{error}</p>} */}
         <label className="text-xl text-center md:row-start-2">Amount</label>
       </form>
     </div>

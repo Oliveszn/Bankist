@@ -11,7 +11,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["https://bankist-plum.vercel.app/"],
+    origin: ["https://bankist-plum.vercel.app"],
     methods: ["POST", "GET"],
     credentials: true,
   })
